@@ -2,7 +2,7 @@
   description = "NixOS Installation Flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; 
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,10 +13,11 @@
     };
   };
 
-  outputs = { self, nixpkgs, disko, nixos-anywhere }: {
+  outputs = { self, nixpkgs, disko, nixos-anywhere, ... }@inputs: {
     # Single command installation target
     nixosConfigurations.swift = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
         disko.nixosModules.disko
         {
