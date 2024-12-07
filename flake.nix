@@ -25,6 +25,7 @@
           disko.devices = import ./disko-config.nix;
         }
         ./configuration.nix
+        ./hardware-configuration.nix
         
         # Additional installation settings
         {
